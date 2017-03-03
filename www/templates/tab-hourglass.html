@@ -1,0 +1,69 @@
+<ion-view hide-nav-bar="true" class="tab-hourglass-view">
+    <style>
+        .tab-hourglass-view #timeCon{width:302px;margin: 10px auto;border-radius:5px;padding-top: 20px;border: 1px solid #4d4d4d}
+        .tab-hourglass-view #timeCon>div{float: left}
+        .tab-hourglass-view #timeCon .colon{width: 15px;margin-top: 43px;font-size: 40px;}
+        .tab-hourglass-view input {width: 90px;height: 90px;font-size: 60px;text-align: center;}
+        .tab-hourglass-view input:focus{color:#0c60ee}
+        .tab-hourglass-view .btnCon{height: 50px;width: 100%;position: fixed;bottom: 0;background-color: #4d4d4d;padding: 5px 0}
+        .tab-hourglass-view #start{background-color: #4cd964;color: #fff;border-radius: 5px;width: 80%;height: 40px;margin: 0 auto;text-align: center;line-height: 40px;font-size: 16px;}
+        .tab-hourglass-view .forbid{color: #4d4d4d!important;background-color: #3ba44d!important;}
+        .tab-hourglass-view .bottomBtn{width: 90%;height: 40px;margin: 0 auto;text-align: center;line-height: 40px;color: #fff;border-radius: 5px;}
+        .tab-hourglass-view #restart{background-color: #4cd964}
+        .tab-hourglass-view .resetBtn{background-color: #a4a4a4}
+        .tab-hourglass-view #stop{background-color: #e11d40  }
+        .tab-hourglass-view .col-50{padding: 0}
+        .tab-hourglass-view #timeIsUp{height: 100%;width: 100%;background-color: #4d4d4d;z-index: 99;position: absolute;}
+        .tab-hourglass-view #timeIsUp .close{z-index:99;left:50%;margin-left:-40px;position: absolute;bottom: 40px;width: 80px;height: 80px;font-size: 40px;line-height: 40px;color: #ff3b30;border-radius: 50%;border: 2px solid #ff3b30;}
+        .tab-hourglass-view #timeIsUp .text{z-index:99;left:0;position: absolute;bottom:0;top:0;right:0;margin: auto;color: #fff;font-size: 18px;width: 120px;height: 40px;letter-spacing: 5px;}
+    </style>
+    <div id="timeIsUp" class="tac" ng-if="isTime">
+        <img src="img/hourglass.png" alt="" width="100" style="margin-top: 40px">
+        <div class="text">
+            <span>{{startTime}}</span>
+            <p class="tac" style="margin-top: 10px">时间到</p>
+        </div>
+        <div class="close tac" ng-click="close()">
+            <span class="icon ion-close" style="line-height: 80px"></span>
+        </div>
+    </div>
+    <ion-content>
+        <div class="padding">
+            <div id="timeCon" class="clearfix">
+                <div class="tac">
+                    <span>小时</span>
+                    <input type="tel" ng-model="time.hour" ng-blur="timeBlur(time.hour,'hour')" ng-keydown="timeKeyDown($event,time.hour,'hour')" ng-keyup="timeKeyUp()">
+                </div>
+                <div class="tac colon">:</div>
+                <div class="tac">
+                    <span>分钟</span>
+                    <input type="tel" ng-model="time.minute" ng-blur="timeBlur(time.minute,'minute')" ng-keydown="timeKeyDown($event,time.minute,'minute')" ng-keyup="timeKeyUp()">
+                </div>
+                <div class="tac colon">:</div>
+                <div class="tac">
+                    <span>秒</span>
+                    <input type="tel" ng-model="time.second" ng-blur="timeBlur(time.second,'second')" ng-keydown="timeKeyDown($event,time.second,'second')" ng-keyup="timeKeyUp()">
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div id="startCon" class="row btnCon" ng-if="status==0">
+        <div id="start" ng-click="start($event)" ng-class="{true:'forbid',false:''}[isForbid]">开始</div>
+    </div>
+    <div id="stopCon" class="row btnCon" ng-if="status==1">
+        <div class="col col-50">
+            <div id="stop" class="bottomBtn" ng-click="stop()">停止</div>
+        </div>
+        <div class="col col-50">
+            <div class="bottomBtn resetBtn" ng-click="reset()">重置</div>
+        </div>
+    </div>
+    <div id="restartCon" class="row btnCon" ng-if="status==2">
+        <div class="col col-50">
+            <div id="restart" class="bottomBtn" ng-click="restart()">重新启动</div>
+        </div>
+        <div class="col col-50">
+            <div class="bottomBtn resetBtn" ng-click="reset()">重置</div>
+        </div>
+    </div>
+</ion-view>

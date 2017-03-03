@@ -1,0 +1,24 @@
+<ion-view hide-nav-bar="true" class="tab-world-view">
+    <style>
+        .tab-world-view #newWorld{line-height:47px;margin: 0;padding: 0 20px;font-size: 14px;position: fixed;top:48px;left: 0;width: 100%;z-index: 99}
+        .tab-world-view #newWorld .icon:before{font-size: 30px!important;}
+        .tab-world-view #worldList{padding-top: 47px;}
+        .tab-world-view #worldList .item div{width:50%;float: left; }
+    </style>
+    <a class="button button-full button-dark" id="newWorld" href="#/tab/new-world">
+        <span class="fl">添加城市</span><span class="fr icon ion-ios-plus-empty"></span>
+    </a>
+  <ion-content>
+      <div id="worldList" class="list" ng-if="countryList.length>0">
+          <div ng-repeat="list in countryList" class="item clearfix" ng-click="showActionSheet($index,list)">
+              <div style="line-height: 50px">
+                  <img src="img/flag.png" width="40" style="border-radius: 50%;vertical-align: middle">&nbsp;&nbsp;&nbsp;<span>{{list.name}}</span>
+              </div>
+              <div class="tar">
+                  <span style="font-size: 20px">{{list.currTime}}</span>
+                  <p style="font-size: 12px;margin-top: 8px">{{list.currDate}}</p>
+              </div>
+          </div>
+      </div>
+  </ion-content>
+</ion-view>

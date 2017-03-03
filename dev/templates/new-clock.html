@@ -1,0 +1,73 @@
+<ion-view view-title="{{title}}" class="new-clock-view" hide-tabs>
+    <style>
+        .new-clock-view #saveBtn{font-size: 14px}
+        .new-clock-view #timeCon{padding: 20px 0;}
+        .new-clock-view #timeCon button{display: block;margin: 0 auto}
+        .new-clock-view #hint{font-size: 14px}
+        .new-clock-view .hint-blue{background-color: #0a9dc7}
+        .new-clock-view .hint-black{background-color: #5a5a5a }
+        .new-clock-view #optionCon{background-color: #000}
+        .new-clock-view #optionCon .item{background-color: #000;border: none;color: #fff;font-size: 14px}
+        .new-clock-view .weekday{width: 13%;margin-left:1.5%;font-size:14px;height: 40px;border-bottom: 2px solid #fff;background-color:#4d4d4d;text-align: center;line-height: 40px;color:#fff}
+        .new-clock-view .weekdayActive{color: #22cd7f ;border-bottom-color: #22cd7f}
+        .new-clock-view #repeatCb{background-color: #000;color:#fff;font-size: 14px;border: none}
+        .new-clock-view #clockName{background-color: #000000;color: #fff}
+        .new-clock-view #clockName:focus{border: 2px solid #0c60ee}
+        .new-clock-view .input-label{font-size: 14px;margin-bottom: 10px}
+    </style>
+    <header-back goBack="goBack()"></header-back>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="saveClock()" id="saveBtn">
+           保存
+        </button>
+    </ion-nav-buttons>
+    <ion-content has-bouncing="false">
+        <div id="timeCon" class="row row-center" ng-class="{true:'hint-black',false:'hint-blue'}[isNight]">
+            <div class="col col-10"></div>
+            <div class="col col-30 tac">
+                <div class="ion-arrow-up-b button-icon icon" ng-click="addHour(param.hour)"></div>
+                <input type="tel" class="timeInput" ng-model="param.hour" ng-blur="timeBlur(param.hour,'hour')" ng-keyup="timeKeyUp()" ng-keydown="timeKeyDown($event,param.hour,'hour')">
+                <div class="ion-arrow-down-b button-icon icon" ng-click="minusHour(param.hour)"></div>
+            </div>
+            <div class="col col-20 tac" style="font-size: 80px;margin-top: -10px;">:</div>
+            <div class="col col-30 tac">
+                <div class="ion-arrow-up-b button-icon icon" ng-click="addMinute(param.minute)"></div>
+                <input type="tel" class="timeInput" ng-model="param.minute" ng-blur="timeBlur(param.minute,'minute')" ng-keyup="timeKeyUp()" ng-keydown="timeKeyDown($event,param.minute,'minute')">
+                <div class="ion-arrow-down-b button-icon icon" ng-click="minusMinute(param.minute)"></div>
+            </div>
+            <div class="col col-10"></div>
+        </div>
+        <div id="hint" class="h44  bsbb pd10 cfff" ng-class="{true:'hint-black',false:'hint-blue'}[isNight]">
+            <p style="line-height: 24px;">闹钟已设置为<span ng-if="day">{{day}}天</span><span ng-if="hour">{{hour}}小时</span><span ng-if="minute">{{minute}}分钟</span>后</p>
+        </div>
+        <div class="padding" id="optionCon">
+            <div id="weekCon">
+                <div id="week"  class="row row-center">
+                    <div class="weekday" ng-class="{true:'weekdayActive',false:''}[day.select]" ng-repeat="day in week" ng-click="weekDayClick(day)">{{day.name}}</div>
+                </div>
+                <ion-checkbox ng-model="param.repeat" class="checkbox-dark" id="repeatCb">每周重复</ion-checkbox>
+            </div>
+            <div class="item item-icon-right" ng-click="goListModal('type')">
+                闹钟类型 <span style="color: #999">{{param.type}}</span>
+                <i class="icon ion-ios-arrow-forward"></i>
+            </div>
+            <div class="item item-icon-right" ng-click="goListModal('song')">
+                闹钟铃声 <span style="color: #999">{{param.music}}</span>
+                <i class="icon ion-ios-arrow-forward"></i>
+            </div>
+            <div class="item range">
+                <i class="icon ion-volume-low"></i>
+                <input type="range" name="volume" ng-model="param.volume">
+                <i class="icon ion-volume-high"></i>
+            </div>
+            <label class="item item-input item-stacked-label" style="padding: 5px 10px;">
+                <span class="input-label cfff">名称</span>
+                <input type="text" placeholder="闹钟" id="clockName" ng-model="param.clockName">
+            </label>
+            <p style="color: #fff">
+                {{keyList}}
+            </p>
+
+        </div>
+    </ion-content>
+</ion-view>

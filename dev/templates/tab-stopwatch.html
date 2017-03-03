@@ -1,0 +1,57 @@
+<ion-view hide-nav-bar="true"  class="tab-stopwatch-view">
+  <style>
+    .tab-stopwatch-view #timeCon{width: 95%;margin: 0 auto;height: 80px;border: 2px solid #ccc;border-radius: 5px;line-height: 70px; }
+    .tab-stopwatch-view #timeList{padding-bottom: 100px;}
+    .tab-stopwatch-view .bigTime{font-size: 60px;vertical-align: middle}
+    .tab-stopwatch-view .smTime{font-size: 30px;vertical-align: middle}
+    .tab-stopwatch-view .btnCon{height: 50px;width: 100%;position: fixed;bottom: 0;background-color: #4d4d4d;padding: 5px 0}
+    .tab-stopwatch-view .col-50{padding: 0}
+    .tab-stopwatch-view #start{background-color: #4cd964;color: #fff;border-radius: 5px;width: 80%;height: 40px;margin: 0 auto;text-align: center;line-height: 40px;font-size: 16px;}
+    .tab-stopwatch-view #restart{background-color: #4cd964}
+    .tab-stopwatch-view #reset,#count{background-color: #a4a4a4}
+    .tab-stopwatch-view #stop{background-color: #e11d40  }
+    .tab-stopwatch-view .bottomBtn{width: 90%;height: 40px;margin: 0 auto;text-align: center;line-height: 40px;color: #fff;border-radius: 5px;}
+    .tab-stopwatch-view .index{font-size: 18px;color: #0c60ee;margin-right: 10px;}
+    .tab-stopwatch-view .timeGap{font-size: 20px;font-weight: bold;}
+  </style>
+  <ion-content>
+      <div class="padding">
+        <div id="timeCon" class="tac">
+          <span class="bigTime">{{time.hour}}</span>
+          <span class="smTime">:</span>
+          <span class="bigTime">{{time.minute}}</span>
+          <span class="smTime">:</span>
+          <span class="bigTime">{{time.second}}</span>
+          <span class="smTime">{{time.mSecond}}</span>
+        </div>
+      </div>
+      <div id="timeList">
+          <div  class="list list-inset">
+            <div class="item clearfix" ng-repeat="list in timeList">
+                <span class="index">{{list.index}}</span>
+                <span class="timeCurr">{{list.currTime}}</span>
+                <span class="timeGap fr">{{list.gapTime}}</span>
+            </div>
+          </div>
+      </div>
+  </ion-content>
+  <div id="startCon" class="row btnCon" ng-if="status==0">
+    <div id="start" ng-click="start()">开始</div>
+  </div>
+  <div id="stopCon" class="row btnCon" ng-if="status==1">
+    <div class="col col-50">
+      <div id="stop" class="bottomBtn" ng-click="stop()">停止</div>
+    </div>
+    <div class="col col-50">
+      <div id="count" class="bottomBtn"  ng-click="count()">计时</div>
+    </div>
+  </div>
+  <div id="resetCon" class="row btnCon" ng-if="status==2">
+    <div class="col col-50">
+      <div id="restart" class="bottomBtn"  ng-click="start()">重新启动</div>
+    </div>
+    <div class="col col-50">
+      <div id="reset" class="bottomBtn"  ng-click="reset()">重置</div>
+    </div>
+  </div>
+</ion-view>

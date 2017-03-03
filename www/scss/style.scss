@@ -1,0 +1,129 @@
+.centerNum{
+  color:#0c60ee;
+  font-size:18px!important;
+}
+.opacityNum{
+  font-size: 14px!important;
+  opacity: .5;
+}
+.rightCenterNum{
+  font-size: 16px!important;
+  color:#0c60ee;
+}
+.rightOpacityNum{
+  font-size: 12px!important;
+  opacity: .5;
+}
+
+.timeContainer {
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.timeMask {
+  background-color: #ececec;
+  width: 100%;
+  position: absolute;
+  height: 40px;
+}
+
+.timeNum {
+  position: absolute;
+  left: 0;
+  backface-visibility: hidden;
+}
+
+.timeSelector {
+  margin-top: 200px;
+  width: 100%;
+  height: 190px;
+  background-color: #ececec;
+  border-top: 1px solid #e1e1e1;
+  overflow: hidden;
+  position: absolute;
+  bottom:0;
+  & .topMask {
+    @extend .timeMask;
+    opacity: .6;
+  }
+
+  & .bottomMask {
+    @extend .timeMask;
+    bottom: 0;
+    opacity: .6;
+  }
+  & .midMask {
+    @extend .timeMask;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #ffffff;
+    opacity: .9;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: #e1e1e1;
+  }
+  & .timeStage {
+    perspective: 2000px;
+    perspective-origin: 55% 50%;
+    text-align: center;
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    float: left;
+
+  }
+  & .leftStage {
+    @extend .timeStage;
+    border-right: 1px solid #e1e1e1;
+
+    & .leftContainer {
+      @extend .timeContainer;
+      & .hour {
+        @extend .timeNum;
+        margin-top: 75px;
+        font-size: 16px;
+        height: 40px;
+        width: 100%;
+        line-height: 40px;
+      }
+    }
+  }
+  & .rightStage {
+    @extend .timeStage;
+    & .topMask {
+      @extend .timeMask;
+      opacity: .6;
+    }
+    & .bottomMask {
+      @extend .timeMask;
+      bottom: 0;
+      opacity: .6;
+    }
+    & .rightContainer {
+      @extend .timeContainer;
+      & .minute {
+        @extend .timeNum;
+        margin-top: 77px;
+        height: 35px;
+        width: 100%;
+        line-height: 35px;
+      }
+    }
+  }
+}
+
+@for $i from 1 through 24 {
+  .leftContainer span:nth-child(#{$i}) {
+    transform: rotateX(-15deg * ($i - 1)) translateZ(150px);
+  }
+}
+
+@for $i from 1 through 60 {
+  .rightContainer span:nth-child(#{$i}) {
+    transform: rotateX(-6deg * ($i - 1)) translateZ(330px);
+  }
+}

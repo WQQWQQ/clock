@@ -1,0 +1,86 @@
+<ion-view hide-nav-bar="true" class="tab-clock-view">
+  <style>
+    .tab-clock-view #newClock {
+      line-height: 47px;
+      margin: 0;
+      padding: 0 20px;
+      font-size: 14px;
+      position: fixed;
+      top: 48px;
+      left: 0;
+      width: 100%;
+      z-index: 99
+    }
+
+    .tab-clock-view #newClock .icon:before {
+      font-size: 30px !important;
+    }
+
+    .tab-clock-view #clockList {
+      padding-top: 47px;
+    }
+
+    .tab-clock-view #clockList span {
+      font-size: 16px
+    }
+
+    .tab-clock-view #clockList .item {
+      background-color: #070707;
+      color: #fff
+    }
+
+    .tab-clock-view .week {
+      margin-top: 10px;
+      height: 20px;
+      line-height: 20px
+    }
+
+    .tab-clock-view .week span {
+      font-size: 14px !important;
+      letter-spacing: 3px;
+      color: #ffffff
+    }
+
+    .tab-clock-view .ion-ios-loop-strong {
+      color: #0c60ee
+    }
+
+    .tab-clock-view .green {
+      color: #27ff88 !important;
+    }
+  </style>
+  <a class="button button-full button-dark" id="newClock" href="#/tab/new-clock" style="display: none">
+    <span class="fl">新建闹钟</span><span class="fr icon ion-ios-plus-empty"></span>
+  </a>
+  <ion-content has-bouncing="false">
+    <div id="clockList" class="list" ng-if="clockList.length>0" >
+      <div ng-repeat="list in clockList" class="item row row-center" ng-click="showActionSheet($index,list)">
+        <div class="col col-30 tac">
+          <span style="line-height: 50px;font-size: 18px">{{list.hour}}:{{list.minute}}</span>
+        </div>
+        <div class="col col-50">
+          <span>{{list.clockName}}</span>&nbsp;<span class="icon"
+                                                     ng-class="{true:'ion-ios-loop-strong',false:''}[list.repeat]"></span>
+          <p class="week">
+            <span ng-repeat="day in week"
+                  ng-class="{true:'green',false:''}[list.week.indexOf(day.id)>-1]">{{day.name}}</span>
+          </p>
+        </div>
+        <div class="col col-30 tac">
+          <label class="toggle" ng-click="$event.stopPropagation();">
+            <input type="checkbox" ng-model="list.on">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <button ng-click="register()">注册</button>
+    <button ng-click="login()">登录</button>
+    <button ng-click="send()">发送</button>
+    <p>信息：{{param.msg}}</p>
+  </ion-content>
+  <!--<time-selector></time-selector>-->
+</ion-view>

@@ -1,0 +1,33 @@
+<ion-view view-title="添加城市" class="new-world-view" hide-tabs>
+    <style>
+        .new-world-view .bar-header{border-bottom: 1px solid #ccc;}
+        .new-world-view #alphabet{height:100%;width: 16px;position: absolute;right: 0;top:44px;z-index: 99}
+        .new-world-view .letter{display: block;text-align: center;height: 16px;line-height: 16px;color: inherit;font-size: 14px;}
+        .new-world-view #letter{width: 80px;height: 80px;position: absolute;left: 0;top:0;bottom: 0;right:0;margin:auto;background-color: rgba(0,0,0,.5);color: #fff;z-index: 99;border-radius: 5px;font-size: 30px;line-height: 80px;text-align: center}
+    </style>
+    <header-back goback="goBack()"></header-back>
+    <alphabet></alphabet>
+    <div id="letter" ng-if="letterShow">{{currLetter}}</div>
+    <ion-content>
+
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" placeholder="搜索城市" ng-model="search.name">
+            </label>
+            <a class="button button-icon icon ion-android-locate"></a>
+        </div>
+        <div class="list">
+            <div ng-repeat="(letter,list) in cityList">
+                <div class="item item-divider" ng-if="!search.name" id="{{letter}}">
+                    {{letter}}
+                </div>
+                <a class="item item-avatar" ng-repeat="city in list | filter:search | orderBy:order" ng-click="select(city)">
+                    <img src="img/flag.png">
+                    <h2 style="margin-bottom: 5px">{{city.name}}</h2>
+                    <p>GMT{{city.diff}}</p>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
